@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+
+@theme {
+  --font-playfair: var(--font-playfair);
+  --font-inter: var(--font-inter);
+  --font-fraunces: var(--font-fraunces);
+  --font-jakarta: var(--font-jakarta);
+  --font-lora: var(--font-lora);
+  --font-outfit: var(--font-outfit);
+  --font-spectral: var(--font-spectral);
+  --font-noto: var(--font-noto-serif);
+  --font-manrope: var(--font-manrope);
+
+  /* === BRAND CORE === */
+  --color-brand-terracotta: #BD663B;
+  --color-brand-burnt: #7C2D12;
+
+  /* === BRAND CORE (EDITORIAL RADIANCE) === */
+  --color-primary-terracotta: #93461d;
+  --color-sanctuary-bg: #faf9f6;
+
+  /* === FOUNDATION (CREAM SYSTEM) === */
+  --color-surface: #F6F1EB;
+  /* main background (cream) */
+  --color-surface-container-low: #EFE7DE;
+  /* section background shift */
+  --color-surface-bright: #FFFFFF;
+  /* === FOUNDATION (TONAL SYSTEM) === */
+  --color-surface-low: #f4f3f1;
+  --color-surface-high: #e9e8e5;
+  --color-surface-highest: #e3e2e0;
+  --color-surface-bright: #ffffff;
+  /* cards / floating elements */
+
+  /* === TEXT === */
+  --color-text-primary: #7C2D12;
+  /* burnt orange (main text) */
+  --color-text-secondary: #A78B7A;
+  /* muted mineral tone */
+  --color-text-muted: #CBBFB5;
+
+  /* === TERRACOTTA SCALE === */
+  --color-terracotta-50: #FDF6F2;
+  --color-terracotta-100: #F7E4DA;
+  --color-terracotta-200: #EBC4AF;
+  --color-terracotta-300: #DEA488;
+  --color-terracotta-400: #D18463;
+  --color-terracotta-500: #C06B42;
+  /* PRIMARY */
+  --color-terracotta-600: #A95B36;
+  --color-terracotta-700: #8F4A2B;
+  --color-terracotta-800: #733A21;
+  --color-terracotta-900: #5A2C18;
+
+  /* === BURNT ORANGE SCALE === */
+  --color-burnt-50: #FFF6F3;
+  --color-burnt-100: #FEE9E2;
+  --color-burnt-200: #FDCFC1;
+  --color-burnt-300: #FBAA91;
+  --color-burnt-400: #F67A57;
+  --color-burnt-500: #E5532D;
+  --color-burnt-600: #C43F1F;
+  --color-burnt-700: #9E331A;
+  --color-burnt-800: #7C2D12;
+  /* MAIN TEXT */
+  --color-burnt-900: #5C1F0C;
+
+  /* === NEUTRAL MINERAL === */
+  --color-mineral-100: #F5F2EF;
+  --color-mineral-200: #E7E1DB;
+  --color-mineral-300: #D6CEC6;
+  --color-mineral-400: #BFB5AC;
+  --color-mineral-500: #A39A92;
+  --color-mineral-600: #7F766F;
+  --color-mineral-700: #5F5751;
+  --color-mineral-800: #3F3935;
+  --color-mineral-900: #2A2522;
+
+  /* === UI TOKENS === */
+  --color-border-subtle: color-mix(in oklab, #C06B42 10%, transparent);
+  --color-border-soft: color-mix(in oklab, #C06B42 20%, transparent);
+
+  --color-glass-bg: color-mix(in oklab, #F6F1EB 80%, transparent);
+}
+
+@layer base {}
+
+@layer utilities {
+  @keyframes scroll-dash {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    100% {
+      transform: translateY(200%);
+    }
+  }
+
+  .animate-scroll-dash {
+    animation: scroll-dash 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+  }
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
