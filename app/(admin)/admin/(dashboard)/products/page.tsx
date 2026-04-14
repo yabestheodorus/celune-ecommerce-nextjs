@@ -50,7 +50,7 @@ export default async function AdminProductsPage() {
             </thead>
             <tbody className="divide-y divide-[#1a1c1a]/0">
               {products.length > 0 ? (
-                products.map((product) => (
+                products.map((product: Product) => (
                   <ProductRow
                     key={product.id}
                     product={product}
