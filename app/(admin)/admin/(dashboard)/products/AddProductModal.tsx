@@ -488,7 +488,7 @@ export default function AddProductModal({ categories }: { categories: Categories
                       <SummaryRow label="Name" value={name} />
                       <SummaryRow label="Type" value={type} />
                       <SummaryRow label="Price" value={formattedPrice} />
-                      <SummaryRow label="Image" value={file ? file.name : imageUrl ? "Set" : "—"} />
+                      <SummaryRow label="Image" value={mediaItems.length > 0 ? `${mediaItems.length} added` : "—"} />
                       <SummaryRow label="Skin" value={skinConditions.join(", ") || "—"} />
                       <SummaryRow label="Highlights" value={highlights.join(", ") || "—"} />
                     </div>
