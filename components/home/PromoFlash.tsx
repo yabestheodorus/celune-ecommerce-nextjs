@@ -7,10 +7,10 @@ import ProductCard from '@/components/product/ProductCard'
 import gsap from 'gsap'
 import { PiStarFourFill } from 'react-icons/pi'
 import { useGSAP } from '@gsap/react'
-import { type getProducts } from '@/lib/queries'
+import { type Product } from '@/lib/queries'
 
 interface PromoFlashProps {
-  products: Awaited<ReturnType<typeof getProducts>>
+  products: Product[]
 }
 
 const PromoFlash = ({ products }: PromoFlashProps) => {

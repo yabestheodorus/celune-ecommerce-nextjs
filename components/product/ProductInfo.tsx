@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import { useCartStore } from '@/lib/store'
-import { type getProducts } from '@/lib/queries'
+import { type Product } from '@/lib/queries'
 
 interface ProductInfoProps {
-  product: Awaited<ReturnType<typeof getProducts>>[number]
+  product: Product
 }
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {

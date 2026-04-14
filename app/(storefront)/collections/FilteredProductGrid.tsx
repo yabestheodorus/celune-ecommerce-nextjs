@@ -2,10 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/product/ProductCard";
-import { getProducts } from "@/lib/queries";
+import { type Product } from "@/lib/queries";
 
-
-type Product = Awaited<ReturnType<typeof getProducts>>[number];
 
 // Mirrors the server-side pipeline exactly — safe to swap for DB types later
 function applyFiltersAndSort(products: Product[], searchParams: URLSearchParams): Product[] {
@@ -15,10 +13,10 @@ function applyFiltersAndSort(products: Product[], searchParams: URLSearchParams)
   const searchQuery = searchParams.get("q")?.toLowerCase() ?? "";
   const sortBy = searchParams.get("sort") ?? "newest";
 
-  const filtered = products.filter((product) => {
+  const filtered = products.filter((product: Product) => {
     if (searchQuery && !product.name.toLowerCase().includes(searchQuery) && !product.type.toLowerCase().includes(searchQuery)) return false;
-    if (highlightFilters.length > 0 && !product.highlight.some((h) => highlightFilters.includes(h))) return false;
-    if (skinConditionFilters.length > 0 && !product.skinCondition.some((sc) => skinConditionFilters.includes(sc))) return false;
+    if (highlightFilters.length > 0 && !product.highlight.some((h: string) => highlightFilters.includes(h))) return false;
+    if (skinConditionFilters.length > 0 && !product.skinCondition.some((sc: string) => skinConditionFilters.includes(sc))) return false;
     if (productTypeFilters.length > 0 && !productTypeFilters.includes(product.type)) return false;
     return true;
   });
