@@ -57,6 +57,7 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 interface Product {
   id: string;
   name: string;
+  slug: string;
   type: string;
   priceNumber: number;
   images: string[];

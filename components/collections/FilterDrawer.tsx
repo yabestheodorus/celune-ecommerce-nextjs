@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { PiFaders, PiX, PiCheck } from 'react-icons/pi'
-import { type getProductCategories } from '@/app/(admin)/admin/(dashboard)/products/actions'
+import { type getProductCategories } from '@/lib/queries'
 
 interface FilterDrawerProps {
   categories: Awaited<ReturnType<typeof getProductCategories>>

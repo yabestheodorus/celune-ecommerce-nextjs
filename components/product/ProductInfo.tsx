@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import { useCartStore } from '@/lib/store'
-import { ProductItem } from './ProductCard'
+import { type getProducts } from '@/lib/queries'
 
 interface ProductInfoProps {
-  product: ProductItem
+  product: Awaited<ReturnType<typeof getProducts>>[number]
 }
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
@@ -49,11 +49,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             <button
               key={s}
               onClick={() => setSize(s)}
-              className={`px-8 py-3 font-inter text-xs tracking-[0.2em] cursor-pointer active:scale-95 transition-all duration-300 border ${
-                size === s
-                  ? 'bg-brand-burnt text-white border-brand-burnt'
-                  : 'bg-transparent text-brand-burnt border-brand-burnt/20 hover:border-brand-burnt/40'
-              }`}
+              className={`px-8 py-3 font-inter text-xs tracking-[0.2em] cursor-pointer active:scale-95 transition-all duration-300 border ${size === s
+                ? 'bg-brand-burnt text-white border-brand-burnt'
+                : 'bg-transparent text-brand-burnt border-brand-burnt/20 hover:border-brand-burnt/40'
+                }`}
             >
               {s}
             </button>
@@ -63,7 +62,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
 
       {/* Add to Cart Actions */}
       <div className="flex flex-col gap-y-4 w-full max-w-lg mb-16">
-        <button 
+        <button
           onClick={handleAddToCart}
           className="w-full bg-brand-terracotta text-white py-5 font-inter text-xs uppercase tracking-[0.3em] font-medium hover:bg-brand-burnt active:scale-95 transition-all duration-500 cursor-pointer shadow-lg shadow-brand-terracotta/20 hover:shadow-brand-burnt/40"
         >

@@ -6,7 +6,7 @@ import CollectionSearch from '@/components/collections/CollectionSearch'
 import CollectionSort from '@/components/collections/CollectionSort'
 import CollectionsHeader from '@/components/collections/CollectionsHeader'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import { getProducts, getProductCategories } from '@/app/(admin)/admin/(dashboard)/products/actions'
+import { getProducts, getProductCategories } from '@/lib/queries'
 import { Suspense } from 'react'
 
 // ── Data ──────────────────────────────────────────────────────────────────────

@@ -1,14 +1,15 @@
 import "dotenv/config";
-import { prisma } from "./lib/prisma";
+
 import { v2 as cloudinary } from "cloudinary";
 import * as fs from "fs";
 import * as os from "os";
+import prisma from "@/lib/prisma";
 
 // Configure Cloudinary from loaded environment variables
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
@@ -17,11 +18,11 @@ const homeDir = os.homedir();
 // Helper to upload image to cloudinary directly from local path
 async function uploadLocalFile(filePath: string): Promise<string> {
   const absolutePath = filePath.replace('~', homeDir);
-  
+
   if (!fs.existsSync(absolutePath)) {
     throw new Error(`File not found: ${absolutePath}`);
   }
-  
+
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
       absolutePath,
@@ -146,11 +147,11 @@ const productsToSeed = [
 
 async function main() {
   console.log("Starting DB seed with Cloudinary uploads...");
-  
+
   for (const product of productsToSeed) {
     console.log(`\nProcessing Product: ${product.name}`);
     const uploadedImages = [];
-    
+
     for (const imagePath of product.images) {
       console.log(`  Uploading file: ${imagePath}`);
       try {
@@ -161,10 +162,10 @@ async function main() {
         console.error(`  -> Failed to upload ${imagePath}:`, err);
       }
     }
-    
+
     console.log(` Saving ${product.name} to Prisma Database...`);
     const slug = product.name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
-    
+
     try {
       const createdProduct = await prisma.product.create({
         data: {
@@ -187,7 +188,7 @@ async function main() {
       console.error(` Failed to save product to DB:`, dbError);
     }
   }
-  
+
   console.log("\nSeeding fully complete.");
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PiStarFourFill } from 'react-icons/pi'
-import { type getProducts } from '@/app/(admin)/admin/(dashboard)/products/actions'
+import { type getProducts } from '@/lib/queries'
 
 
 interface ProductCardProps {

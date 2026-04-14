@@ -10,6 +10,7 @@ const ClinicalPrecision = () => {
   const statsRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
+    if (!container.current) return;
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container.current,
@@ -31,8 +32,9 @@ const ClinicalPrecision = () => {
 
     // Numbers animation
     container.current.querySelectorAll('.stat-number').forEach((stat) => {
-      const target = parseInt(stat.innerText)
-      gsap.fromTo(stat, 
+      const el = stat as HTMLElement;
+      const target = parseInt(el.innerText)
+      gsap.fromTo(el, 
         { innerText: 0 },
         { 
           innerText: target, 

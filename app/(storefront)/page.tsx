@@ -1,5 +1,5 @@
 import PromoFlash from "@/components/home/PromoFlash";
-import { getProducts } from "../(admin)/admin/(dashboard)/products/actions";
+import { getProducts } from "@/lib/queries";
 import Hero from "@/components/home/Hero";
 import SignatureValue from "@/components/home/SignatureValue";
 import BrandStatement from "@/components/home/BrandStatement";

@@ -9,14 +9,16 @@ export default function StorefrontLayout({
   children: React.ReactNode;
 }) {
   return (
-    // <Suspense fallback={<div className="min-h-screen bg-surface" />}>
-    <SmoothScroll>
+    <>
       <Navbar />
       <main className="flex-1">
-        {children}
+        <Suspense fallback={null}>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+        </Suspense>
       </main>
       <Footer />
-    </SmoothScroll>
-    // </Suspense>
+    </>
   );
 }

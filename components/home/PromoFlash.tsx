@@ -7,7 +7,7 @@ import ProductCard from '@/components/product/ProductCard'
 import gsap from 'gsap'
 import { PiStarFourFill } from 'react-icons/pi'
 import { useGSAP } from '@gsap/react'
-import { type getProducts } from '@/app/(admin)/admin/(dashboard)/products/actions'
+import { type getProducts } from '@/lib/queries'
 
 interface PromoFlashProps {
   products: Awaited<ReturnType<typeof getProducts>>

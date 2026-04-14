@@ -11,13 +11,14 @@ const PhilosophySection = () => {
   const textRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
+    if (!container.current || !imageRef.current || !textRef.current) return;
     gsap.fromTo(
       imageRef.current,
       { clipPath: 'inset(100% 0% 0% 0%)', y: 50 },
-      { 
-        clipPath: 'inset(0% 0% 0% 0%)', 
-        y: 0, 
-        duration: 1.5, 
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+        duration: 1.5,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: imageRef.current,
@@ -29,10 +30,10 @@ const PhilosophySection = () => {
     gsap.fromTo(
       textRef.current.children,
       { opacity: 0, x: -30 },
-      { 
-        opacity: 1, 
-        x: 0, 
-        duration: 1, 
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
         stagger: 0.2,
         ease: 'power2.out',
         scrollTrigger: {
@@ -44,15 +45,15 @@ const PhilosophySection = () => {
   }, { scope: container })
 
   return (
-    <section 
+    <section
       ref={container}
       className="w-full py-32 md:py-48 px-6 md:px-12 bg-surface overflow-hidden"
     >
       <div className="max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-12 gap-16 md:gap-8 items-center">
-        
+
         {/* Left Side: Overlapping Image */}
         <div className="md:col-span-7 relative order-2 md:order-1">
-          <div 
+          <div
             ref={imageRef}
             className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl shadow-brand-burnt/5"
           >
@@ -63,17 +64,17 @@ const PhilosophySection = () => {
               className="object-cover"
             />
           </div>
-          
+
           {/* Accent Badge */}
           <div className="absolute -bottom-10 -right-10 md:-right-20 w-32 h-32 md:w-48 md:h-48 rounded-full border border-brand-burnt/10 flex items-center justify-center p-8 text-center bg-glass-bg backdrop-blur-xl z-10 hidden md:flex">
-             <span className="font-playfair italic text-xs text-brand-burnt/60 leading-snug">
-               Curated by The Curator
-             </span>
+            <span className="font-playfair italic text-xs text-brand-burnt/60 leading-snug">
+              Curated by The Curator
+            </span>
           </div>
         </div>
 
         {/* Right Side: Editorial Text */}
-        <div 
+        <div
           ref={textRef}
           className="md:col-span-5 flex flex-col gap-y-8 order-1 md:order-2 md:pl-16"
         >

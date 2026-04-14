@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ProductItem } from '@/components/product/ProductCard'
+import { type getProducts } from '@/lib/queries'
+
+export type ProductItem = Awaited<ReturnType<typeof getProducts>>[number]
 
 export interface CartItem extends ProductItem {
   quantity: number

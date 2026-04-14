@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/product/ProductCard";
-import { getProducts } from "@/app/(admin)/admin/(dashboard)/products/actions";
+import { getProducts } from "@/lib/queries";
 
 
 type Product = Awaited<ReturnType<typeof getProducts>>[number];

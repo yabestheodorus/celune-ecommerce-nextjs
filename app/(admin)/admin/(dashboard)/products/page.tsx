@@ -2,7 +2,7 @@ import { Search, MoreHorizontal, Archive } from "lucide-react";
 import Image from "next/image";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
-import { getProducts, getProductCategories } from "./actions";
+import { getProducts, getProductCategories } from "@/lib/queries";
 
 export default async function AdminProductsPage() {
   const [products, categories] = await Promise.all([
