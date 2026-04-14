@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
             <p className="font-manrope text-[11px] text-white/50 mt-1">Internal catalog management portal.</p>
           </div>
           <div className="flex flex-col items-end gap-1">
-            {["Identity", "Pricing", "Media", "Catalog"].map((item, i) => (
+            {["Identity", "Pricing", "Media", "Catalog"].map((item: string, i: number) => (
               <div key={item} className="flex items-center gap-2">
                 <span className="font-manrope text-[9px] uppercase tracking-widest text-white/30 font-bold">{item}</span>
                 <div className={`h-px bg-white/20 transition-all ${i === 0 ? "w-8" : i === 1 ? "w-5" : i === 2 ? "w-6" : "w-4"}`} />

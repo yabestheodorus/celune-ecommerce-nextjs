@@ -15,7 +15,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   return (
     <nav aria-label="Breadcrumb" className="w-full">
       <ol className="flex flex-wrap items-center gap-y-2">
-        {items.map((item, index) => {
+        {items.map((item: BreadcrumbItem, index: number) => {
           const isLast = index === items.length - 1
           
           // Decode URL slugs to readable text

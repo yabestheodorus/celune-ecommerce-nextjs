@@ -74,7 +74,7 @@ const AboutHero = () => {
           ref={titleRef}
           className="font-playfair text-6xl md:text-8xl lg:text-9xl text-brand-burnt italic leading-[0.9]"
         >
-          {title.split(' ').map((word, i) => (
+          {title.split(' ').map((word: string, i: number) => (
             <span key={i} className="inline-block overflow-hidden mr-4 lg:mr-8 pb-4">
               <span className="word inline-block">{word}</span>
             </span>

@@ -69,7 +69,7 @@ const SignatureValue = () => {
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-7xl z-10'>
-        {values.map((item, index) => (
+        {values.map((item: { id: string; title: string; description: string }, index: number) => (
           <div
             key={item.id}
             ref={el => { itemsRef.current[index] = el }}

@@ -110,7 +110,7 @@ export default async function CollectionsPage() {
 function ProductGridSkeleton() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-      {Array.from({ length: 8 }).map((_, i) => (
+      {Array.from({ length: 8 }).map((_: unknown, i: number) => (
         <div key={i} className="rounded-2xl bg-brand-burnt/5 animate-pulse aspect-3/4" />
       ))}
     </div>

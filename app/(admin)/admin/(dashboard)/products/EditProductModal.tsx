@@ -88,7 +88,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
   const [skinConditions, setSkinConditions] = useState<string[]>(product.skinCondition);
   const [highlights, setHighlights] = useState<string[]>(product.highlight);
   
-  const initialMediaItems = product.images.map((img) => ({ 
+  const initialMediaItems = product.images.map((img: string) => ({ 
     id: img, 
     type: 'url' as const, 
     value: img 
@@ -184,8 +184,8 @@ export default function EditProductModal({ product, categories }: { product: Pro
     setSkinConditions(product.skinCondition);
     setHighlights(product.highlight);
     
-    mediaItems.forEach(item => { if (item.type === 'file') URL.revokeObjectURL(item.preview); });
-    setMediaItems(product.images.map(img => ({ id: Math.random().toString(36).substring(7), type: 'url', value: img })));
+    mediaItems.forEach((item: MediaItem) => { if (item.type === 'file') URL.revokeObjectURL(item.preview); });
+    setMediaItems(product.images.map((img: string) => ({ id: Math.random().toString(36).substring(7), type: 'url', value: img })));
     setTempUrl("");
     setImageMode("url");
     setStep(0);
@@ -246,7 +246,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
                   )}
                   {highlights.length > 0 && (
                     <div className="absolute top-3 left-3 flex flex-wrap gap-1">
-                      {highlights.slice(0, 2).map((h) => (
+                      {highlights.slice(0, 2).map((h: string) => (
                         <span key={h} className="font-manrope text-[9px] uppercase tracking-widest font-bold px-2 py-1 bg-white/80 backdrop-blur-sm rounded-full text-primary-terracota">{h}</span>
                       ))}
                     </div>
@@ -263,7 +263,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
                 <div>
                   <p className="font-manrope text-[9px] uppercase tracking-[0.25em] font-bold text-[#1a1c1a]/40 mb-2">Skin Conditions</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {skinConditions.map((s) => (
+                    {skinConditions.map((s: string) => (
                       <span key={s} className="font-manrope text-[10px] px-2.5 py-1 rounded-full bg-[#1a1c1a]/5 text-[#1a1c1a]/60 font-medium">{s}</span>
                     ))}
                   </div>
@@ -273,7 +273,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
               {/* Step indicator */}
               <div className="mt-auto">
                 <div className="flex gap-2">
-                  {STEPS.map((s, i) => (
+                  {STEPS.map((s: string, i: number) => (
                     <div key={s} className="flex-1">
                       <div className={`h-0.5 rounded-full transition-all duration-500 ${i <= step ? "bg-primary-terracotta" : "bg-[#1a1c1a]/10"}`} />
                       <p className={`font-manrope text-[9px] uppercase tracking-wider mt-1.5 font-bold transition-colors duration-300 ${i === step ? "text-primary-terracota" : "text-[#1a1c1a]/30"}`}>{s}</p>
@@ -317,7 +317,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
                     </Field>
                     <Field label="Classification Type" hint="Select the product category">
                       <div className="grid grid-cols-2 gap-2">
-                        {categories.productTypes.map((t) => (
+                        {categories.productTypes.map((t: string) => (
                           <label key={t} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border cursor-pointer transition-all duration-300 ${type === t ? "border-primary-terracota bg-primary-terracota/5 text-primary-terracota" : "border-[#1a1c1a]/10 hover:border-[#1a1c1a]/20 text-[#1a1c1a]/60"}`}>
                             <input type="radio" value={t} checked={type === t} onChange={() => setType(t)} className="sr-only" />
                             <span className={`w-2 h-2 rounded-full shrink-0 transition-all duration-300 ${type === t ? "bg-primary-terracota scale-125" : "bg-[#1a1c1a]/20"}`} />
@@ -364,7 +364,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
                     <Field label="Selected Media" hint="Drag to reorder. Maximum 5 images.">
                       {mediaItems.length > 0 ? (
                         <div className="flex gap-4 overflow-x-auto pb-4">
-                          {mediaItems.map((item, idx) => (
+                          {mediaItems.map((item: MediaItem, idx: number) => (
                             <div
                               key={item.id}
                               draggable
@@ -399,7 +399,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
                     {mediaItems.length < 5 && (
                       <div className="p-4 rounded-3xl border border-[#1a1c1a]/8 bg-white/40 space-y-4">
                         <div className="flex gap-2 p-1 bg-[#1a1c1a]/5 rounded-2xl">
-                          {(["url", "upload"] as const).map((mode) => (
+                          {(["url", "upload"] as const).map((mode: "url" | "upload") => (
                             <button
                               key={mode}
                               type="button"
@@ -482,14 +482,14 @@ export default function EditProductModal({ product, categories }: { product: Pro
                   <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
                     <Field label="Skin Conditions" hint="Select all that apply">
                       <div className="flex flex-wrap gap-2">
-                        {categories.skinConditions.map((s) => (
+                        {categories.skinConditions.map((s: string) => (
                           <ChipToggle key={s} label={s} active={skinConditions.includes(s)} onClick={() => toggleChip(s, skinConditions, setSkinConditions)} />
                         ))}
                       </div>
                     </Field>
                     <Field label="Collection Highlights" hint="Badges shown on product cards">
                       <div className="flex flex-wrap gap-2">
-                        {categories.highlights.map((h) => (
+                        {categories.highlights.map((h: string) => (
                           <ChipToggle key={h} label={h} active={highlights.includes(h)} onClick={() => toggleChip(h, highlights, setHighlights)} />
                         ))}
                       </div>

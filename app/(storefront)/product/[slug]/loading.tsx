@@ -17,7 +17,7 @@ export default function ProductLoading() {
           />
           <div className="aspect-[3/4] md:aspect-[4/5] bg-brand-burnt/5 border border-brand-burnt/5 rounded-2xl" />
           <div className="flex gap-4">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map((i: number) => (
               <div key={i} className="w-20 h-24 md:w-24 md:h-32 bg-brand-burnt/5 border border-brand-burnt/5 rounded-xl" />
             ))}
           </div>

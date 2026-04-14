@@ -100,7 +100,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
       {/* 1. Promotional Banner (Ticker) */}
       <div className='w-full bg-brand-burnt py-2 border-b border-white/10 uppercase overflow-hidden whitespace-nowrap z-50'>
         <div ref={tickerRef} className='flex gap-x-20 w-fit px-4'>
-          {[1, 2, 3, 4].map((i) => (
+          {[1, 2, 3, 4].map((i: number) => (
             <span key={i} className='font-inter text-[10px] tracking-[0.4em] font-bold text-[#E7D9BE] flex items-center gap-x-4'>
               Private Collection Access: Use Code "CELUNE-ELITE" for 20% Off <PiStarFourFill size={10} /> Limited Quantities Available <PiStarFourFill size={10} />
             </span>
@@ -110,7 +110,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
 
       {/* 2. Visual Ads Carousel */}
       <div className='w-full h-[40vh] md:h-[50vh] relative overflow-hidden group'>
-        {bannerSlides.map((slide, idx) => (
+        {bannerSlides.map((slide: { id: number; tag: string; title: string; image: string; desc: string }, idx: number) => (
           <div
             key={slide.id}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
@@ -137,7 +137,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
 
         {/* Carousel Indicators */}
         <div className='absolute bottom-8 left-12 flex gap-x-4 z-20'>
-          {bannerSlides.map((_, idx) => (
+          {bannerSlides.map((_: any, idx: number) => (
             <div
               key={idx}
               className={`h-px transition-all duration-500 ${idx === activeSlide ? 'w-16 bg-[#E7D9BE]' : 'w-6 bg-white/20'}`}
@@ -168,7 +168,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
               { label: 'Hrs', value: timeLeft.hours },
               { label: 'Min', value: timeLeft.minutes },
               { label: 'Sec', value: timeLeft.seconds }
-            ].map((t, idx) => (
+            ].map((t: { label: string; value: number }, idx: number) => (
               <div key={idx} className='flex flex-col items-center'>
                 <span className='font-playfair text-4xl md:text-5xl text-brand-terracotta font-extralight tabular-nums'>
                   {String(t.value).padStart(2, '0')}
@@ -181,7 +181,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
 
         {/* 3.2 Product Grid - Fixed 5-Column Grid */}
         <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 w-full z-10'>
-          {flashSaleItems.map((item, idx) => (
+          {flashSaleItems.map((item: Product, idx: number) => (
             <ProductCard key={idx} item={item} />
           ))}
         </div>

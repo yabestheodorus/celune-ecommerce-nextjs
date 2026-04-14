@@ -112,7 +112,7 @@ const FAQ = () => {
           {/* Right Side: FAQ List */}
           <div className="md:w-2/3">
             <div className="flex flex-col">
-              {faqs.map((faq, index) => (
+              {faqs.map((faq: { question: string; answer: string }, index: number) => (
                 <div key={index} className="faq-item">
                   <FAQItem
                     question={faq.question}

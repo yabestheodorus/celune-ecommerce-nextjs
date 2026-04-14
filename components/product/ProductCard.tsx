@@ -2,11 +2,11 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PiStarFourFill } from 'react-icons/pi'
-import { type getProducts } from '@/lib/queries'
+import { type Product } from '@/lib/queries'
 
 
 interface ProductCardProps {
-  item: Awaited<ReturnType<typeof getProducts>>[number]
+  item: Product
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
 
 
         <div className='absolute top-3 right-3 flex flex-wrap max-w-full max-h-25 gap-2'>
-          {item.highlight.map((highlight) => (
+          {item.highlight.map((highlight: string) => (
             <div key={highlight} className=' px-2 py-0.5 rounded-full border border-brand-burnt/30 text-[10px] uppercase tracking-widest text-brand-burnt font-bold z-10 bg-white/50 backdrop-blur-sm'>
               {highlight}
             </div>
@@ -80,7 +80,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
         <div className='mt-4'>
           <p className="font-manrope text-[9px] uppercase tracking-[0.25em] font-bold text-[#1a1c1a]/40 mb-2">Skin Conditions</p>
           <div className="flex flex-wrap gap-1.5">
-            {item.skinCondition.map((s) => (
+            {item.skinCondition.map((s: string) => (
               <span key={s} className="font-manrope text-[10px] px-2.5 py-1 rounded-full bg-[#1a1c1a]/5 text-[#1a1c1a]/60 font-medium">{s}</span>
             ))}
           </div>

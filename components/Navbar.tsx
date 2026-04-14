@@ -27,7 +27,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
 
           <div className='flex items-center gap-x-2'>
-            {navMenu.map((item, index) => (
+            {navMenu.map((item: { name: string; href: string }, index: number) => (
               <Link key={index} href={item.href} className="text-sm font-base font-outfit text-mineral-800 hover:bg-terracotta-300 rounded-full px-6 py-2 transition-colors duration-300">
                 {item.name}
               </Link>

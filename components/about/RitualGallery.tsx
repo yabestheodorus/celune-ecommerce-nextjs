@@ -61,7 +61,7 @@ const RitualGallery = () => {
           ref={scrollRef}
           className="flex gap-x-24 w-fit pr-[20vw]"
         >
-          {items.map((item, i) => (
+          {items.map((item: { title: string; description: string; image: string }, i: number) => (
             <div key={i} className="flex flex-col gap-y-8 w-[60vw] max-w-3xl shrink-0 group">
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl md:rounded-3xl">
                 <Image

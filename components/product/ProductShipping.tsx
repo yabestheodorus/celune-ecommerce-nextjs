@@ -30,7 +30,7 @@ const ProductShipping = () => {
 
   return (
     <div className="w-full max-w-lg mt-12 flex flex-col pt-8 border-t border-brand-burnt/10 gap-y-2">
-      {shippingData.map((item) => (
+      {shippingData.map((item: { id: number; title: string; content: string }) => (
         <div key={item.id} className="border-b border-brand-burnt/10 py-5">
           <button
             onClick={() => toggleOpen(item.id)}

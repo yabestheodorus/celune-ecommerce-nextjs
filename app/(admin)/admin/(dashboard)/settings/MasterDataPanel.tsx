@@ -67,7 +67,7 @@ export default function MasterDataPanel({
           </div>
         ) : (
           <ul>
-            {items.map((item, i) => (
+            {items.map((item: Item, i: number) => (
               <li
                 key={item.id}
                 className="group flex items-center justify-between px-8 py-3 hover:bg-primary-terracotta/3 transition-colors duration-200 border-b border-[#1a1c1a]/4 last:border-0"

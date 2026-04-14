@@ -45,7 +45,7 @@ const ProductReviews = () => {
           <div className="flex items-end gap-x-4 mt-4">
             <span className="font-outfit text-6xl text-brand-burnt font-light leading-none">4.9</span>
             <div className="flex gap-x-1 pb-1">
-              {[1, 2, 3, 4, 5].map((s) => (
+              {[1, 2, 3, 4, 5].map((s: number) => (
                 <PiStarFourFill key={s} size={16} className="text-brand-terracotta" />
               ))}
             </div>
@@ -59,7 +59,7 @@ const ProductReviews = () => {
 
         {/* Right Side: Review List */}
         <div className="md:col-span-8 flex flex-col gap-y-12">
-          {reviewsData.map((review) => (
+          {reviewsData.map((review: any) => (
             <div key={review.id} className="flex flex-col gap-y-4 pb-12 border-b border-brand-burnt/10 last:border-0 relative">
               <div className="flex justify-between items-center">
                 <div className="flex gap-x-1">
