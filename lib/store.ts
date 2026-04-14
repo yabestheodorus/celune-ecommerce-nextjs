@@ -4,7 +4,7 @@ import { type getProducts, type Product } from '@/lib/queries'
 
 export type ProductItem = Product
 
-export interface CartItem extends ProductItem {
+export type CartItem = Product & {
   quantity: number
   selectedSize?: string
 }

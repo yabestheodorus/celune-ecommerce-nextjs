@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useCartStore } from '@/lib/store'
+import { useCartStore, type CartItem } from '@/lib/store'
 import { PiTrashLight, PiPlusLight, PiMinusLight, PiArrowRightLight, PiShoppingBagOpenLight } from 'react-icons/pi'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -89,7 +89,7 @@ const CartPage = () => {
             
             {/* Left: Cart Items List */}
             <div className="lg:col-span-8 flex flex-col gap-y-4">
-              {items.map((item) => (
+              {items.map((item: CartItem) => (
                 <div 
                   key={`${item.id}-${item.selectedSize}`}
                   className="cart-item-card group relative p-6 bg-white/25 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center gap-6 md:gap-10 transition-all duration-500 hover:bg-white/40"
