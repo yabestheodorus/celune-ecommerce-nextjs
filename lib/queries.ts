@@ -29,8 +29,8 @@ export async function getProductCategories() {
     prisma.productCategory.findMany({ orderBy: { createdAt: "asc" } }),
   ]);
   return {
-    productTypes: productCategoryRows.map((c) => c.name),
-    skinConditions: skinConditionRows.map((s) => s.name),
-    highlights: highlightRows.map((h) => h.name),
+    productTypes: productCategoryRows.map((c: { name: string }) => c.name),
+    skinConditions: skinConditionRows.map((s: { name: string }) => s.name),
+    highlights: highlightRows.map((h: { name: string }) => h.name),
   };
 }

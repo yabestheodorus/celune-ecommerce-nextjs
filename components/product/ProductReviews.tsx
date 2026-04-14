@@ -59,14 +59,14 @@ const ProductReviews = () => {
 
         {/* Right Side: Review List */}
         <div className="md:col-span-8 flex flex-col gap-y-12">
-          {reviewsData.map((review: any) => (
+          {reviewsData.map((review: { id: number; name: string; rating: number; date: string; title: string; content: string }) => (
             <div key={review.id} className="flex flex-col gap-y-4 pb-12 border-b border-brand-burnt/10 last:border-0 relative">
               <div className="flex justify-between items-center">
                 <div className="flex gap-x-1">
-                  {[...Array(review.rating)].map((_, i) => (
+                  {[...Array(review.rating)].map((_: unknown, i: number) => (
                     <PiStarFourFill key={i} size={12} className="text-brand-terracotta" />
                   ))}
-                  {[...Array(5 - review.rating)].map((_, i) => (
+                  {[...Array(5 - review.rating)].map((_: unknown, i: number) => (
                     <PiStarFourFill key={i} size={12} className="text-brand-burnt/20" />
                   ))}
                 </div>

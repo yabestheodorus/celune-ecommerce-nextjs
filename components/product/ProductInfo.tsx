@@ -45,7 +45,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
       <div className="flex flex-col gap-y-3 mb-12">
         <span className="font-inter text-[11px] uppercase tracking-widest text-brand-burnt/80 font-bold">Select Volume</span>
         <div className="flex gap-4">
-          {['30ml', '50ml', '100ml'].map((s) => (
+          {['30ml', '50ml', '100ml'].map((s: string) => (
             <button
               key={s}
               onClick={() => setSize(s)}

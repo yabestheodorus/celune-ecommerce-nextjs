@@ -55,7 +55,7 @@ const ProductGallery = ({ product }: { product: Product }) => {
       <div ref={containerRef} className="flex flex-col md:flex-row gap-6 w-full">
         {/* Thumbnails */}
         <div className="flex md:flex-col gap-4 order-2 md:order-1 overflow-x-auto no-scrollbar py-2 md:py-0">
-          {images.map((img, idx) => (
+          {images.map((img: string, idx: number) => (
             <button
               key={idx}
               onClick={() => setActiveIndex(idx)}
@@ -134,7 +134,7 @@ const ProductGallery = ({ product }: { product: Product }) => {
 
           {/* Lightbox Thumbnails */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-x-4 z-[10005]" onClick={(e) => e.stopPropagation()}>
-            {images.map((img, idx) => (
+            {images.map((img: string, idx: number) => (
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}

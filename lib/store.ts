@@ -27,12 +27,12 @@ export const useCartStore = create<CartStore>()(
       addItem: (product, size) => {
         const { items } = get()
         const existingItem = items.find(
-          (item) => item.id === product.id && item.selectedSize === size
+          (item: CartItem) => item.id === product.id && item.selectedSize === size
         )
 
         if (existingItem) {
           set({
-            items: items.map((item) =>
+            items: items.map((item: CartItem) =>
               item.id === product.id && item.selectedSize === size
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
@@ -47,14 +47,14 @@ export const useCartStore = create<CartStore>()(
 
       removeItem: (id) => {
         set({
-          items: get().items.filter((item) => item.id !== id),
+          items: get().items.filter((item: CartItem) => item.id !== id),
         })
       },
 
       updateQuantity: (id, quantity) => {
         if (quantity < 1) return
         set({
-          items: get().items.map((item) =>
+          items: get().items.map((item: CartItem) =>
             item.id === id ? { ...item, quantity } : item
           ),
         })
@@ -64,13 +64,13 @@ export const useCartStore = create<CartStore>()(
 
       getTotalPrice: () => {
         return get().items.reduce(
-          (total, item) => total + (item.priceNumber || 0) * item.quantity,
+          (total: number, item: CartItem) => total + (item.priceNumber || 0) * item.quantity,
           0
         )
       },
 
       getItemCount: () => {
-        return get().items.reduce((total, item) => total + item.quantity, 0)
+        return get().items.reduce((total: number, item: CartItem) => total + item.quantity, 0)
       },
     }),
     {
