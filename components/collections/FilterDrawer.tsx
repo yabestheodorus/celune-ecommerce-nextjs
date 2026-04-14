@@ -76,7 +76,7 @@ export default function FilterDrawer({ categories }: FilterDrawerProps) {
     <div className="mb-8">
       <h3 className="font-playfair text-xl italic text-brand-burnt mb-4">{title}</h3>
       <div className="flex flex-col gap-y-3">
-        {items.map(item => {
+        {items.map((item: string) => {
           const isActive = activeFilters[categoryKey]?.includes(item)
           return (
             <div

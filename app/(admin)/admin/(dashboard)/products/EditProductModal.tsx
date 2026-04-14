@@ -108,7 +108,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
   })();
 
   const toggleChip = (value: string, list: string[], setter: (v: string[]) => void) => {
-    setter(list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
+    setter(list.includes(value) ? list.filter((x: string) => x !== value) : [...list, value]);
   };
 
   const addMediaUrl = () => {
@@ -156,7 +156,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
     data.set("slug", slug);
     data.set("type", type);
     data.set("priceNumber", priceNumber);
-    mediaItems.forEach(item => {
+    mediaItems.forEach((item: MediaItem) => {
       if (item.type === 'file') data.append("images", item.file);
       else data.append("images", item.value);
     });
@@ -195,7 +195,7 @@ export default function EditProductModal({ product, categories }: { product: Pro
   const handleClose = () => {
     setOpen(false);
     setStep(0);
-    mediaItems.forEach(item => { if (item.type === 'file') URL.revokeObjectURL(item.preview); });
+    mediaItems.forEach((item: MediaItem) => { if (item.type === 'file') URL.revokeObjectURL(item.preview); });
     setTempUrl("");
     setImageMode("url");
   };
