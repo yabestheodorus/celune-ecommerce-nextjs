@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { type getProducts } from '@/lib/queries'
+import { type getProducts, type Product } from '@/lib/queries'
 
-export type ProductItem = Awaited<ReturnType<typeof getProducts>>[number]
+export type ProductItem = Product
 
 export interface CartItem extends ProductItem {
   quantity: number

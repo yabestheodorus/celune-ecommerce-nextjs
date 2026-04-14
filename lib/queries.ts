@@ -1,15 +1,18 @@
 import { cacheTag } from "next/cache";
 import prisma from "@/lib/prisma";
+import type { Product as PrismaProduct } from "@prisma/client";
+
+export type Product = PrismaProduct;
 
 // ── Queries ───────────────────────────────────────────────────────────────────
 
-export async function getProducts() {
+export async function getProducts(): Promise<Product[]> {
   "use cache";
   cacheTag("products");
   return prisma.product.findMany({ orderBy: { createdAt: "desc" } });
 }
 
-export async function getProductBySlug(slug: string) {
+export async function getProductBySlug(slug: string): Promise<Product | null> {
   "use cache";
   cacheTag(`products-${slug}`);
   return prisma.product.findFirst({ where: { slug } });
