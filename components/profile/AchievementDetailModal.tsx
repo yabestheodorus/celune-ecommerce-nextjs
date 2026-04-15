@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { X } from 'lucide-react'
 
@@ -59,7 +59,7 @@ const AchievementDetailModal = ({ achievement, onClose }: AchievementDetailModal
 
         <div className="p-12 flex flex-col items-center text-center">
           <div className={`w-32 h-32 rounded-full ${achievement.color} flex items-center justify-center mb-10 shadow-2xl`}>
-            {React.cloneElement(achievement.icon as React.ReactElement, { className: 'w-16 h-16' })}
+            <span className="[&>svg]:w-16 [&>svg]:h-16">{achievement.icon}</span>
           </div>
 
           <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-brand-terracotta mb-4">Achievement Unlocked</span>

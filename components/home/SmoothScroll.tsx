@@ -9,12 +9,12 @@ import { usePathname } from 'next/navigation'
 gsap.registerPlugin(ScrollTrigger)
 
 // Debounce helper — prevents firing on every pixel of resize/load
-function debounce<T extends () => void>(fn: T, ms: number): T {
+function debounce(fn: () => void, ms: number): () => void {
   let timer: ReturnType<typeof setTimeout>
-  return ((...args: Parameters<T>) => {
+  return () => {
     clearTimeout(timer)
-    timer = setTimeout(() => fn(...args), ms)
-  }) as T
+    timer = setTimeout(fn, ms)
+  }
 }
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
