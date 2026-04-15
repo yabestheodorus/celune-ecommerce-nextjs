@@ -77,7 +77,7 @@ const BrandStatement = () => {
           The Celune Philosophy
         </h1>
 
-        <p ref={textRef} className='font-playfair text-[4.2rem] text-terracotta-50/10 leading-[1.1] text-center'>
+        <p ref={textRef} className='font-playfair text-[4.2rem] text-terracotta-200 leading-[1.1] text-center'>
           At Celune, skincare is not excess — it is intention.
           Every formula is created to work in harmony with your skin, delivering visible results through refined simplicity.
         </p>

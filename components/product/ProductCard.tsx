@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
   const slug = item.slug;
 
   return (
-    <Link href={`/product/${slug}`} className='block flex flex-col group relative bg-white/25 backdrop-blur-xl border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition-all duration-500 cursor-pointer'>
+    <Link href={`/product/${slug}`} className='block flex flex-col group relative bg-surface-on-low rounded-2xl p-4 transition-all duration-500 cursor-pointer'>
       {/* Image Container */}
       <div className='aspect-3/4 mb-3 overflow-hidden rounded-xl bg-white/5 flex items-center justify-center relative shadow-inner'>
 

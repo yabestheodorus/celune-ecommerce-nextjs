@@ -1,0 +1,94 @@
+'use client'
+
+import React, { useRef } from 'react'
+import Link from 'next/link'
+import { ArrowRight, Mail, Lock, User } from 'lucide-react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { authClient } from '@/lib/auth-client'
+import { FcGoogle } from 'react-icons/fc'
+
+export default function RegisterPage() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+
+    tl.fromTo('.register-title', 
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.5 },
+      0.2
+    )
+
+    tl.fromTo('.register-card',
+      { y: 60, opacity: 0, scale: 0.98 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.5, backdropFilter: 'blur(32px)' },
+      0.4
+    )
+
+    tl.fromTo('.form-element',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.1 },
+      0.8
+    )
+  }, { scope: containerRef })
+
+  return (
+    <div ref={containerRef} className="min-h-screen bg-sanctuary-bg flex items-center justify-center px-6 py-24 relative overflow-hidden">
+      {/* Decorative Orbs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-brand-terracotta/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[30vw] h-[30vw] bg-brand-burnt/5 blur-[100px] rounded-full pointer-events-none" />
+
+      <div className="w-full max-w-xl relative z-10">
+        <div className="mb-12 text-center lg:text-left">
+          <Link href="/" className="inline-block mb-8 group">
+            <span className="font-playfair text-xl tracking-[0.2em] uppercase text-brand-burnt/60 scale-95 origin-left transition-transform group-hover:scale-100">
+              Célune
+            </span>
+          </Link>
+          <h1 className="register-title font-playfair text-5xl md:text-7xl text-brand-burnt italic leading-tight">
+            Join the <br /> Sanctuary
+          </h1>
+        </div>
+
+        <div className="register-card glass-bg border border-brand-burnt/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="space-y-8">
+            <div className="form-element text-center space-y-4">
+              <p className="font-inter text-sm text-brand-burnt/60 leading-relaxed">
+                Begin your journey with Célune. We use secure Google authentication to create your personal sanctuary archive in seconds.
+              </p>
+            </div>
+
+            <button 
+              type="button"
+              onClick={async () => {
+                await authClient.signIn.social({
+                  provider: "google",
+                  callbackURL: "/",
+                })
+              }}
+              className="form-element w-full bg-brand-burnt text-surface py-5 rounded-2xl font-inter text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-burnt/90 transition-all flex items-center justify-center gap-3 group shadow-xl"
+            >
+              <FcGoogle className="w-6 h-6 bg-white rounded-full p-0.5" />
+              Join with Google
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
+
+            <div className="form-element flex items-center gap-4 py-2">
+              <div className="flex-1 h-px bg-brand-burnt/10" />
+              <span className="font-inter text-[10px] uppercase tracking-widest text-brand-burnt/30">Secure Onboarding</span>
+              <div className="flex-1 h-px bg-brand-burnt/10" />
+            </div>
+          </div>
+
+          <p className="form-element mt-10 text-center font-inter text-[11px] text-brand-burnt/40">
+            Already have an archive? {' '}
+            <Link href="/login" className="text-brand-terracotta font-semibold hover:underline decoration-brand-terracotta/30 underline-offset-4 tracking-wide">
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}

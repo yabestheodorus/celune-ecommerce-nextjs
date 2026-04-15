@@ -5,18 +5,43 @@ import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { TbShoppingBag } from 'react-icons/tb'
 import { useCartStore } from '@/lib/store'
+import { authClient } from '@/lib/auth-client'
+import { LogOut, ShoppingBagIcon, UserRound } from 'lucide-react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 
 const Navbar = () => {
+  const { data: session } = authClient.useSession()
   const [mounted, setMounted] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
   const cartCount = useCartStore((state) => state.getItemCount())
+  const dropdownRef = React.useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  useGSAP(() => {
+    if (isProfileOpen) {
+      gsap.fromTo('.profile-dropdown',
+        { opacity: 0, y: 10, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power4.out' }
+      )
+    }
+  }, [isProfileOpen])
 
   const navMenu = [
     { name: "Home", href: "/" },
-    { name: "Products", href: "/product" },
+    // { name: "Products", href: "/product" },
     { name: "Collections", href: "/collections" },
     { name: "About", href: "/about" },
   ]
@@ -53,12 +78,92 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-            <Link
-              href="/admin/login"
-              className="ml-2 text-[10px] uppercase tracking-[0.2em] font-bold text-brand-burnt/50 hover:text-brand-terracotta transition-colors duration-300 border-l border-brand-burnt/10 pl-4 py-1.5"
-            >
-              Admin
-            </Link>
+
+            {mounted && (
+              <div className="ml-4 pl-4 border-l border-brand-burnt/10 flex items-center gap-4 relative" ref={dropdownRef}>
+                {session ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsProfileOpen(!isProfileOpen)}
+                      className="w-8 h-8 rounded-full overflow-hidden border border-brand-burnt/10 hover:border-brand-terracotta transition-colors cursor-pointer"
+                    >
+                      {session.user.image ? (
+                        <img src={session.user.image} alt={session.user.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full bg-brand-burnt/5 flex items-center justify-center text-[10px] font-bold text-brand-burnt uppercase">
+                          {session.user.name.charAt(0)}
+                        </div>
+                      )}
+                    </button>
+
+                    {isProfileOpen && (
+                      <div className="profile-dropdown absolute right-0 mt-4 w-72 border border-brand-burnt/70 rounded-2xl shadow-2xl overflow-hidden z-[110] origin-top-right bg-surface">
+                        <div className="p-5 border-b border-brand-burnt/5 bg-brand-burnt/[0.02]">
+                          <p className="font-playfair text-sm text-brand-burnt italic leading-tight truncate">
+                            {session.user.name}
+                          </p>
+                          <p className="font-inter text-[10px] text-brand-burnt/40 uppercase tracking-widest truncate mt-1">
+                            {session.user.email}
+                          </p>
+                        </div>
+
+                        <div className="p-2">
+                          <Link
+                            href="/orders"
+                            onClick={() => setIsProfileOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-brand-burnt/5 transition-colors group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-terracotta-200 flex items-center justify-center text-brand-burnt/60 group-hover:text-brand-terracotta transition-colors">
+                              <ShoppingBagIcon size={14} />
+                            </div>
+                            <span className="font-inter text-[11px] uppercase tracking-widest font-bold text-brand-burnt/60 group-hover:text-brand-burnt transition-colors">
+                              Ritual Registry
+                            </span>
+                          </Link>
+
+                          <Link
+                            href="/profile"
+                            onClick={() => setIsProfileOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-brand-burnt/5 transition-colors group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-terracotta-200 flex items-center justify-center text-brand-burnt/60 group-hover:text-brand-terracotta transition-colors">
+                              <UserRound size={14} />
+                            </div>
+                            <span className="font-inter text-[11px] uppercase tracking-widest font-bold text-brand-burnt/60 group-hover:text-brand-burnt transition-colors">
+                              Identity Seal
+                            </span>
+                          </Link>
+                        </div>
+
+                        <div className="p-2 bg-brand-burnt/[0.02] border-t border-brand-burnt/5">
+                          <button
+                            onClick={async () => {
+                              setIsProfileOpen(false)
+                              await authClient.signOut()
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/5 transition-colors group text-left"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-red-500/5 flex items-center justify-center text-brand-burnt/40 group-hover:text-red-500 transition-colors">
+                              <LogOut size={14} />
+                            </div>
+                            <span className="font-inter text-[11px] uppercase tracking-widest font-bold text-brand-burnt/40 group-hover:text-red-500 transition-colors">
+                              Dissolve Session
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-burnt/50 hover:text-brand-terracotta transition-colors duration-300"
+                  >
+                    Archive
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -18,15 +18,24 @@ const CartPage = () => {
   }, [])
 
   useGSAP(() => {
-    if (mounted && items.length > 0) {
-      gsap.from('.cart-item-card', {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        clearProps: 'all'
-      })
+    if (mounted) {
+      if (items.length > 0) {
+        gsap.from('.cart-item-card', {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out',
+          clearProps: 'all'
+        })
+      } else {
+        gsap.from('.cart-empty-state', {
+          scale: 0.95,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out'
+        })
+      }
     }
   }, { dependencies: [mounted, items.length], scope: containerRef })
 
@@ -55,9 +64,9 @@ const CartPage = () => {
   const total = subtotal + shipping
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col pt-32" ref={containerRef}>
+    <div className="min-h-screen bg-white flex flex-col pt-32" ref={containerRef}>
       <div className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 pb-32">
-        
+
         {/* Header Section */}
         <div className="flex flex-col mb-12 border-b border-brand-burnt/5 pb-10">
           <span className="font-inter text-[10px] uppercase tracking-[0.4em] text-brand-terracotta font-bold mb-4">
@@ -69,38 +78,40 @@ const CartPage = () => {
         </div>
 
         {items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-32 border border-dashed border-brand-burnt/10 rounded-3xl bg-white/10 backdrop-blur-sm">
-            <div className="w-20 h-20 rounded-full bg-brand-burnt/5 flex items-center justify-center mb-8">
-              <PiShoppingBagOpenLight size={40} className="text-brand-burnt/40" />
+          <div className="cart-empty-state flex flex-col items-center justify-center py-40">
+            <div className="w-24 h-24 rounded-full bg-brand-burnt/5 flex items-center justify-center mb-10 overflow-hidden group">
+              <PiShoppingBagOpenLight size={40} className="text-brand-burnt/20 group-hover:scale-110 transition-transform duration-700" />
             </div>
-            <h2 className="font-playfair text-3xl text-brand-burnt italic mb-4">The archive is currently void.</h2>
-            <p className="font-inter text-sm text-brand-burnt/50 mb-10 max-w-xs text-center leading-relaxed">
-              Discover the monograph collections and begin your clinical synthesis.
+            <h2 className="font-playfair text-4xl md:text-5xl text-brand-burnt italic mb-6">The archive is currently <span className="text-brand-terracotta/40">void</span>.</h2>
+            <div className="w-12 h-px bg-brand-burnt/10 mb-8"></div>
+            <p className="font-inter text-sm text-brand-burnt/50 mb-12 max-w-sm text-center leading-relaxed px-6">
+              Your ritual registry awaits its first synthesis. Explore our curated formulations to begin your discovery.
             </p>
-            <Link 
-              href="/collections" 
-              className="px-10 py-4 bg-brand-burnt text-white rounded-full font-inter text-[11px] uppercase tracking-[0.3em] font-medium hover:bg-brand-terracotta transition-all duration-500 active:scale-95"
+            <Link
+              href="/collections"
+              className="group flex items-center gap-3 px-12 py-5 bg-brand-burnt text-white rounded-full font-inter text-[11px] uppercase tracking-[0.4em] font-medium hover:bg-brand-terracotta transition-all duration-500 hover:scale-[1.02] active:scale-95"
             >
-              Back to Collections
+              <span>Discover Collections</span>
+              <PiArrowRightLight className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
+
             {/* Left: Cart Items List */}
             <div className="lg:col-span-8 flex flex-col gap-y-4">
               {items.map((item: CartItem) => (
-                <div 
+                <div
                   key={`${item.id}-${item.selectedSize}`}
-                  className="cart-item-card group relative p-6 bg-white/25 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center gap-6 md:gap-10 transition-all duration-500 hover:bg-white/40"
+                  className="cart-item-card group relative p-6 border-b border-brand-burnt/5 flex items-center gap-6 md:gap-10 transition-all duration-500"
                 >
                   {/* Product Visual */}
-                  <div className="relative w-24 h-32 md:w-28 md:h-36 rounded-xl overflow-hidden bg-white/10 shrink-0 border border-brand-burnt/5">
-                    <Image 
-                      src={item.images?.[0] || "/images/flash1.jpeg"} 
-                      alt={item.name} 
-                      fill 
-                      className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                  <div className="relative w-24 h-32 md:w-28 md:h-36 rounded-xl overflow-hidden bg-brand-burnt/3 shrink-0">
+                    <Image
+                      src={item.images?.[0] || "/images/flash1.jpeg"}
+                      alt={item.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
 
@@ -125,8 +136,8 @@ const CartPage = () => {
 
                     <div className="flex items-center justify-between mt-auto pt-6">
                       {/* Quantity Controls */}
-                      <div className="flex items-center p-1 rounded-full border border-brand-burnt/10 bg-white/20">
-                        <button 
+                      <div className="flex items-center p-1 rounded-full border border-brand-burnt/10">
+                        <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="w-8 h-8 rounded-full flex items-center justify-center text-brand-burnt/60 hover:bg-white hover:text-brand-burnt transition-all cursor-pointer"
                         >
@@ -135,7 +146,7 @@ const CartPage = () => {
                         <span className="w-10 text-center font-outfit text-sm text-brand-burnt font-medium">
                           {item.quantity}
                         </span>
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="w-8 h-8 rounded-full flex items-center justify-center text-brand-burnt/60 hover:bg-white hover:text-brand-burnt transition-all cursor-pointer"
                         >
@@ -144,7 +155,7 @@ const CartPage = () => {
                       </div>
 
                       {/* Remove Button */}
-                      <button 
+                      <button
                         onClick={(e) => handleRemove(item.id, e)}
                         className="p-3 text-brand-burnt/30 hover:text-red-400 hover:bg-red-50/50 rounded-full transition-all duration-300 cursor-pointer"
                       >
@@ -158,9 +169,9 @@ const CartPage = () => {
 
             {/* Right: Summary Ledger */}
             <div className="lg:col-span-4 lg:sticky lg:top-32">
-              <div className="bg-white/25 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-sm">
+              <div className="p-8 border-t border-brand-burnt/5 lg:border lg:border-brand-burnt/5 lg:rounded-2xl">
                 <h2 className="font-playfair text-2xl text-brand-burnt italic mb-8 border-b border-brand-burnt/5 pb-4 text-center">Order Summary</h2>
-                
+
                 <div className="flex flex-col gap-y-4 mb-10">
                   <div className="flex justify-between items-center text-sm font-inter">
                     <span className="text-brand-burnt/60">Subtotal</span>
@@ -177,10 +188,13 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-brand-burnt text-white py-5 rounded-xl font-inter text-[11px] uppercase tracking-[0.3em] font-bold transition-all duration-500 hover:bg-brand-terracotta active:scale-95 shadow-lg shadow-brand-burnt/10 flex items-center justify-center gap-x-2">
+                <Link
+                  href="/checkout"
+                  className="w-full bg-brand-burnt text-white py-5 rounded-xl font-inter text-[11px] uppercase tracking-[0.3em] font-bold transition-all duration-500 hover:bg-brand-terracotta active:scale-95 flex items-center justify-center gap-x-2"
+                >
                   <span>Checkout Protocol</span>
                   <PiArrowRightLight size={18} />
-                </button>
+                </Link>
 
                 <p className="mt-8 font-inter text-[10px] text-brand-burnt/40 text-center leading-relaxed">
                   Tax included. Shipping calculated at final step. <br />

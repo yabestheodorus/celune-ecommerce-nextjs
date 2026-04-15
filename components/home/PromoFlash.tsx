@@ -43,21 +43,30 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
       id: 1,
       tag: "Seasonal Edit",
       title: "Autumnal Radiance",
-      image: "/ads_banner.png",
+      image: "/images/banner1.jpeg",
       desc: "Limited Edition Monograph Series"
     },
     {
       id: 2,
-      tag: "Private Partnership",
-      title: "Exclusive 20% Off",
-      image: "/credit_card_promo.png",
-      desc: "With BCA Credit Card Payment"
+      tag: "Seasonal Edit",
+      title: "Autumnal Radiance",
+      image: "/images/banner2.jpeg",
+      desc: "Limited Edition Monograph Series"
     },
     {
       id: 3,
+      tag: "Private Partnership",
+      title: "Exclusive 20% Off",
+      image: "/images/banner3.jpeg",
+
+      desc: "With BCA Credit Card Payment"
+    },
+    {
+      id: 4,
       tag: "Grand Opening",
       title: "Célune Boutique",
-      image: "/new_outlet.png",
+      image: "/images/banner4.jpeg",
+
       desc: "Our Second Home Now Open"
     }
   ]
@@ -69,33 +78,21 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
     return () => clearInterval(timer)
   }, [])
 
-  // 1. Initial/Scroll Animation Hook (Run once or on scroll)
+  // Ticker animation
   useGSAP(() => {
-    // Ticker Animation
     gsap.to(tickerRef.current, {
       xPercent: -50,
       repeat: -1,
       duration: 20,
       ease: "none"
     })
-
-
   }, { scope: containerRef })
-
-  // 2. Carousel Specific Animation Hook (Runs on activeSlide change)
-  useGSAP(() => {
-    // Carousel Transition (Animate on Slide Change)
-    gsap.fromTo(".slide-text",
-      { opacity: 0, y: 15 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.1 }
-    )
-  }, { scope: containerRef, dependencies: [activeSlide] })
 
 
   const flashSaleItems = products.slice(0, 5)
 
   return (
-    <section ref={containerRef} className='relative min-h-dvh w-full bg-surface-container-low overflow-hidden flex flex-col'>
+    <section ref={containerRef} className='relative min-h-dvh w-full  overflow-hidden flex flex-col'>
 
       {/* 1. Promotional Banner (Ticker) */}
       <div className='w-full bg-brand-burnt py-2 border-b border-white/10 uppercase overflow-hidden whitespace-nowrap z-50'>
@@ -108,39 +105,42 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
         </div>
       </div>
 
-      {/* 2. Visual Ads Carousel */}
+      {/* 2. Visual Ads Carousel — horizontal slide track */}
       <div className='w-full h-[40vh] md:h-[50vh] relative overflow-hidden group'>
-        {bannerSlides.map((slide: { id: number; tag: string; title: string; image: string; desc: string }, idx: number) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title}
-              fill
-              loading='eager'
-              className={`object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-1000 ${idx === activeSlide ? 'scale-105' : 'scale-100'}`}
-              sizes="100vw"
-            />
-            <div className='absolute inset-0 bg-linear-to-r from-brand-terracotta/60 to-transparent flex items-center px-12'>
-              <div className='flex flex-col gap-y-2 slide-text'>
-                <span className='font-inter text-[10px] uppercase tracking-[0.5em] text-white font-bold bg-brand-burnt/80 px-4 py-1 w-fit'>
-                  {slide.tag}
-                </span>
-                <h3 className='font-playfair text-5xl md:text-6xl text-white italic'>{slide.title}</h3>
-                <span className='font-inter text-[12px] text-white/70 uppercase tracking-[0.4em]'>{slide.desc}</span>
-              </div>
+
+        {/* Sliding track */}
+        <div
+          className='flex h-full transition-transform duration-700 ease-in-out'
+          style={{
+            transform: `translateX(-${activeSlide * (100 / bannerSlides.length)}%)`,
+            width: `${bannerSlides.length * 100}%`,
+          }}
+        >
+          {bannerSlides.map((slide: { id: number; tag: string; title: string; image: string; desc: string }) => (
+            <div
+              key={slide.id}
+              className='relative flex-shrink-0 h-full overflow-hidden'
+              style={{ width: `${100 / bannerSlides.length}%` }}
+            >
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                priority
+                className='object-cover transition-all duration-1000'
+                sizes="100vw"
+              />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
         {/* Carousel Indicators */}
         <div className='absolute bottom-8 left-12 flex gap-x-4 z-20'>
           {bannerSlides.map((_: any, idx: number) => (
-            <div
+            <button
               key={idx}
-              className={`h-px transition-all duration-500 ${idx === activeSlide ? 'w-16 bg-[#E7D9BE]' : 'w-6 bg-white/20'}`}
+              onClick={() => setActiveSlide(idx)}
+              className={`h-px transition-all duration-500 ${idx === activeSlide ? 'w-16 bg-[#E7D9BE]' : 'w-6 bg-white/20 hover:bg-white/40'}`}
             />
           ))}
         </div>

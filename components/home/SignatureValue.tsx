@@ -1,35 +1,9 @@
-'use client'
 
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/all'
-import React, { useRef } from 'react'
 import { PiStarFourFill } from 'react-icons/pi'
 
-gsap.registerPlugin(ScrollTrigger)
 
 const SignatureValue = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([])
 
-  useGSAP(() => {
-    // Filter nulls to prevent GSAP errors
-    const items = itemsRef.current.filter((el): el is HTMLDivElement => el !== null)
-
-    gsap.to(items, {
-      y: 0,
-      opacity: 1,
-      stagger: 0.2,
-      duration: 1,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 20%",
-        end: "bottom 75%",
-        toggleActions: "play none none reverse",
-      }
-    })
-  }, { scope: containerRef })
 
   const values = [
     {
@@ -50,7 +24,7 @@ const SignatureValue = () => {
   ]
 
   return (
-    <section ref={containerRef} className='relative w-full min-h-screen bg-surface-container-low py-32 px-12 flex flex-col items-center justify-center overflow-hidden border-t border-brand-burnt/5'>
+    <section className='relative w-full min-h-screen bg-surface-container-low py-32 px-12 flex flex-col items-center justify-center overflow-hidden border-t border-brand-burnt/5'>
 
       {/* Background Ornament */}
       <div className='absolute top-20 left-1/2 -translate-x-1/2 opacity-[0.03] select-none pointer-events-none'>
@@ -72,8 +46,8 @@ const SignatureValue = () => {
         {values.map((item: { id: string; title: string; description: string }, index: number) => (
           <div
             key={item.id}
-            ref={el => { itemsRef.current[index] = el }}
-            className='flex flex-col p-10 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white/60 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-2 translate-y-100 group opacity-0'
+
+            className='flex flex-col p-10 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white/60 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-2  group '
           >
             <div className='flex items-center justify-between mb-8'>
               <span className='font-outfit text-5xl font-extralight text-brand-terracotta/30 group-hover:text-brand-terracotta/60 transition-colors duration-500'>

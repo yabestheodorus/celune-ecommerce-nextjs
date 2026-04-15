@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo } from 'react'
+import { useEffect, useRef } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
@@ -8,47 +8,83 @@ import { usePathname } from 'next/navigation'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Debounce helper — prevents firing on every pixel of resize/load
+function debounce<T extends () => void>(fn: T, ms: number): T {
+  let timer: ReturnType<typeof setTimeout>
+  return ((...args: Parameters<T>) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), ms)
+  }) as T
+}
+
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const pathname  = usePathname()
+  const lenisRef  = useRef<Lenis | null>(null)
+  const rafRef    = useRef<number>(0)
+  const roRef     = useRef<ResizeObserver | null>(null)
 
-  // Use useMemo to ensure lenis is only created once
-  const lenis = useMemo(() => {
-    if (typeof window === 'undefined') return null
-    return new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    })
-  }, [])
-
+  // ─── Boot Lenis once ─────────────────────────────────────────────────────
   useEffect(() => {
-    if (!lenis) return
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenisRef.current = lenis
 
-    function raf(time: number) {
-      lenis?.raf(time)
-      ScrollTrigger.update()
-      requestAnimationFrame(raf)
-    }
-
-    const requestID = requestAnimationFrame(raf)
+    // Feed Lenis into GSAP ticker so ScrollTrigger gets accurate positions
+    gsap.ticker.add((time) => lenis.raf(time * 1000))
+    gsap.ticker.lagSmoothing(0)
 
     lenis.on('scroll', ScrollTrigger.update)
 
-    return () => {
-      cancelAnimationFrame(requestID)
-      lenis.destroy()
-    }
-  }, [lenis])
+    // ─── ResizeObserver: refresh ST whenever the body height changes ──────
+    // This catches image loads, font loads, hydration reflows, GSAP tweens…
+    const refresh = debounce(() => {
+      ScrollTrigger.refresh()
+    }, 120)
 
-  // Sync route changes
-  useEffect(() => {
-    if (lenis) {
-      lenis.scrollTo(0, { immediate: true })
-      // Give the DOM a moment to settle before refreshing
-      setTimeout(() => {
-        ScrollTrigger.refresh()
-      }, 50)
+    const ro = new ResizeObserver(refresh)
+    ro.observe(document.body)
+    roRef.current = ro
+
+    // Also fire once after `window.load` in case some resources were deferred
+    const onLoad = () => {
+      // Multiple staggered passes — belt-and-braces approach
+      refresh()
+      setTimeout(() => ScrollTrigger.refresh(), 400)
+      setTimeout(() => ScrollTrigger.refresh(), 1000)
     }
-  }, [pathname, lenis])
+
+    if (document.readyState === 'complete') {
+      onLoad()
+    } else {
+      window.addEventListener('load', onLoad, { once: true })
+    }
+
+    return () => {
+      gsap.ticker.remove((time) => lenis.raf(time * 1000))
+      lenis.destroy()
+      ro.disconnect()
+      cancelAnimationFrame(rafRef.current)
+    }
+  }, [])
+
+  // ─── On every route change ────────────────────────────────────────────────
+  useEffect(() => {
+    const lenis = lenisRef.current
+    if (!lenis) return
+
+    // Jump to top instantly
+    lenis.scrollTo(0, { immediate: true })
+
+    // Staggered refreshes to handle:
+    //  50ms  — basic React hydration
+    //  300ms — images starting to paint
+    //  800ms — webfonts / lazy images / Suspense boundaries
+    // 1800ms — anything really slow (3D, intersection observers, etc.)
+    const ids = [50, 300, 800, 1800].map((delay) =>
+      setTimeout(() => ScrollTrigger.refresh(), delay)
+    )
+
+    return () => ids.forEach(clearTimeout)
+  }, [pathname])
 
   return children
 }
