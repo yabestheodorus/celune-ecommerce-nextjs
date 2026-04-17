@@ -6,20 +6,20 @@ import HeroCanvas from './HeroCanvas'
 
 const Hero = () => {
   return (
-    <section className='relative h-[100dvh] pt-46 px-12 w-full'>
+    <section className='relative h-[100dvh] pt-32 md:pt-46 px-6 md:px-12 w-full'>
 
       <div className='absolute top-0 left-0 w-full h-screen z-0'>
         <HeroCanvas />
       </div>
 
-      <h1 className="font-lora text-[7rem] font-[100] tracking-tight leading-none">
+      <h1 className="font-lora text-[3rem] sm:text-[4.5rem] md:text-[7rem] font-[100] tracking-tight leading-none">
         Care with <span className="italic text-brand-burnt/80">Intention</span>,
         <span className="relative "><PiStarFourFill size={65} className='absolute top-6 right-0 text-brand-burnt/40 rotate-30' /> glow </span> with <span className="italic text-brand-burnt/80">Confidence</span>
       </h1>
 
 
       {/* Decorative Vertical Text */}
-      <div className='absolute right-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-y-8 [writing-mode:vertical-rl] z-10'>
+      <div className='hidden md:flex absolute right-12 top-1/2 -translate-y-1/2 flex-col items-center gap-y-8 [writing-mode:vertical-rl] z-10'>
         <div className='w-[2px] h-24 bg-brand-burnt/10'></div>
         <span className='font-inter text-[12px] uppercase tracking-[0.5em] text-brand-burnt/40 font-medium'>
           EST 2024 — THE ART OF BOTANICAL SKINCARE
@@ -28,7 +28,7 @@ const Hero = () => {
       </div>
 
       {/* Editorial Text Block */}
-      <div className='absolute bottom-24 right-24 w-80 z-20'>
+      <div className='hidden md:block absolute bottom-24 right-24 w-80 z-20'>
         <p className='font-spectral text-[1.3rem] italic text-brand-burnt/60 leading-[1.7] text-right'>
           "Nature's precision meets clinical excellence. Every drop is a ceremony of <span className='text-brand-terracotta/80'>radiance</span> and intent."
         </p>
@@ -39,7 +39,7 @@ const Hero = () => {
       </div>
 
       {/* Floating Benefit Highlights */}
-      <div className='absolute top-1/2 right-48 flex flex-col gap-y-12 items-end z-20 pointer-events-none -translate-y-1/2'>
+      <div className='hidden md:flex absolute top-1/2 right-48 flex-col gap-y-12 items-end z-20 pointer-events-none -translate-y-1/2'>
         <div className='flex items-center gap-x-4 group'>
           <div className='flex flex-col items-end'>
             <span className='font-inter text-[12px] uppercase tracking-widest text-brand-burnt/30'>Protocol No.</span>
@@ -60,7 +60,7 @@ const Hero = () => {
       </div>
 
       {/* Product Detail Glass Card */}
-      <div className='absolute top-[48%] left-12  p-6 rounded-3xl bg-glass-bg backdrop-blur-xl border border-white/30 shadow-2xl z-30 group transition-all duration-500 hover:translate-y-[-5px] hover:bg-white/40'>
+      <div className='hidden md:block absolute top-[48%] left-12 p-6 rounded-3xl bg-glass-bg backdrop-blur-xl border border-white/30 shadow-2xl z-30 group transition-all duration-500 hover:translate-y-[-5px] hover:bg-white/40'>
         <div className='flex flex-col gap-y-5'>
           <div className='flex justify-between items-center'>
             <span className='font-inter text-[10px] uppercase tracking-[0.25em] text-brand-burnt/60 font-bold'>
@@ -90,7 +90,7 @@ const Hero = () => {
       </div>
 
       {/* Social Proof Section */}
-      <div className='absolute bottom-32 left-12 flex items-center gap-x-6'>
+      <div className='absolute bottom-32 left-6 md:left-12 flex items-center gap-x-6'>
         <div className='flex items-center -space-x-5'>
           <div className='relative w-14 h-14 rounded-full border-[3px] border-surface-container-low overflow-hidden shadow-lg z-30 transition-transform hover:scale-110 duration-300'>
             <Image src="/images/avatars/avatar1.png" alt="Client 1" fill className='object-cover' sizes="56px" />

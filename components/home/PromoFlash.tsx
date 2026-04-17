@@ -147,7 +147,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
       </div>
 
       {/* 3. Flash Sale Body */}
-      <div className='flex-1 flex flex-col items-start justify-center mt-12 px-12 relative py-4'>
+      <div className='flex-1 flex flex-col items-start justify-center mt-12 px-6 md:px-12 relative py-4'>
 
         {/* Decorative Background Blob */}
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] opacity-10 pointer-events-none'>
@@ -156,8 +156,8 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
           </svg>
         </div>
         {/* 3.1 Flash Sale Header - Justified Between */}
-        <div className='w-full flex flex-col md:flex-row justify-between items-end mb-8 gap-y-6'>
-          <div className='flex flex-col items-start gap-y-1'>
+        <div className='w-full flex flex-col md:flex-row justify-between items-center md:items-end mb-8 gap-y-6'>
+          <div className='flex flex-col items-center md:items-start gap-y-1'>
             <span className='font-inter text-[9px] uppercase tracking-[0.4em] text-brand-burnt/40 font-bold'>Limited Release No. 04</span>
             <h2 className='font-playfair text-4xl md:text-5xl text-brand-burnt italic'>The Monograph Sale</h2>
           </div>
@@ -180,7 +180,7 @@ const PromoFlash = ({ products }: PromoFlashProps) => {
         </div>
 
         {/* 3.2 Product Grid - Fixed 5-Column Grid */}
-        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 w-full z-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full z-10'>
           {flashSaleItems.map((item: Product, idx: number) => (
             <ProductCard key={idx} item={item} />
           ))}

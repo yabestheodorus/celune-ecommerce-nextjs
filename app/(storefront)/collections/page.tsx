@@ -72,7 +72,7 @@ export default async function CollectionsPage() {
   const { products, categories } = await getCollectionData()
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface">
+    <div className="flex flex-col min-h-screen bg-surface ">
 
       {/* GSAP Animated Header — shows total catalog count, not filtered */}
       <CollectionsHeader formulationCount={products.length} />

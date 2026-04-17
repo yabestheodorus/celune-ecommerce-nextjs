@@ -1,10 +1,10 @@
-import { 
-  Plus_Jakarta_Sans, 
-  Fraunces, 
-  Outfit, 
-  Lora, 
-  Spectral, 
-  Inter, 
+import {
+  Plus_Jakarta_Sans,
+  Fraunces,
+  Outfit,
+  Lora,
+  Spectral,
+  Inter,
   Playfair_Display,
   Noto_Serif,
   Manrope
@@ -82,9 +82,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${notoSerif.variable} ${manrope.variable} ${inter.variable} ${fraunces.variable} ${plusJakartaSans.variable} ${outfit.variable} ${lora.variable} ${spectral.variable} h-full antialiased bg-surface`}
+      className={`${playfair.variable} ${notoSerif.variable} ${manrope.variable} ${inter.variable} ${fraunces.variable} ${plusJakartaSans.variable} ${outfit.variable} ${lora.variable} ${spectral.variable} h-full antialiased bg-surface overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col font-inter">
+      <body className="min-h-full flex flex-col font-inter overflow-x-hidden">
         <PreloadModels />
         {children}
       </body>

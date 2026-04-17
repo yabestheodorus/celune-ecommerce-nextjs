@@ -19,7 +19,7 @@ const FAQItem = ({ question, answer, isOpen, onClick }: FAQItemProps) => {
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   return (
-    <div className="border-b border-brand-burnt/10 py-6">
+    <div className="border-b border-brand-burnt/10 py-6 ">
       <button
         onClick={onClick}
         className="w-full flex justify-between items-center text-left group cursor-pointer"
@@ -94,7 +94,7 @@ const FAQ = () => {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="py-32 px-12 bg-surface-container-low w-full overflow-hidden">
+    <section ref={containerRef} className="py-32 px-6 md:px-12 bg-terracotta-50 w-full overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row gap-x-20 gap-y-12">
 

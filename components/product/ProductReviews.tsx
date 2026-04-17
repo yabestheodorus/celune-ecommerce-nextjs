@@ -1,4 +1,3 @@
-import React from 'react'
 import { PiStarFourFill } from 'react-icons/pi'
 
 const reviewsData = [
@@ -34,7 +33,7 @@ const ProductReviews = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16">
         
         {/* Left Side: Aggregate & CTA */}
-        <div className="md:col-span-4 flex flex-col items-start gap-y-6 sticky top-32 h-fit">
+        <div className="md:col-span-4 flex flex-col items-start gap-y-6 md:sticky md:top-32 md:h-fit">
           <span className="font-inter text-[10px] uppercase tracking-[0.4em] font-bold text-brand-terracotta">
             Community Voice
           </span>

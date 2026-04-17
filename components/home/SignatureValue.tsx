@@ -24,7 +24,7 @@ const SignatureValue = () => {
   ]
 
   return (
-    <section className='relative w-full min-h-screen bg-surface-container-low py-32 px-12 flex flex-col items-center justify-center overflow-hidden border-t border-brand-burnt/5'>
+    <section className='relative w-full min-h-screen bg-surface-container-low py-32 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden border-t border-brand-burnt/5'>
 
       {/* Background Ornament */}
       <div className='absolute top-20 left-1/2 -translate-x-1/2 opacity-[0.03] select-none pointer-events-none'>

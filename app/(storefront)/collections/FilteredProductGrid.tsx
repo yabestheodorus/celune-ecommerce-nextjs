@@ -49,7 +49,7 @@ export default function FilteredProductGrid({ products }: { products: Product[] 
       <p className="font-inter text-sm text-brand-burnt/60 mb-8">
         Showing <span className="font-medium text-brand-burnt">{filtered.length}</span> Results
       </p>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
         {filtered.map((item: Product) => (
           <ProductCard key={item.id} item={item} />
         ))}
